@@ -1,0 +1,3223 @@
+Sequence Formation (Contest)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+signed main(){
+    int n;
+    cin >> n;
+    int ans = 0;
+    for(int i = 0; i < n; i++){
+        int x;
+        cin >> x;
+        ans += abs(x);
+    }
+    cout << ans;
+}
+
+
+
+
+Counting Zeroes to Ones (Contest)
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main() {
+    int n, r = 0, c = 0;
+    cin >> n;
+    int k;
+    cin >> k;
+    int ans = n*n;
+    vector<int> row(n + 1), col(n + 1);
+    while(k--){
+        int i, j;
+        cin >> i >> j;
+        if(row[i] == 0) ans -= n - c, row[i] = 1, r++;
+        if(col[j] == 0) ans -= n - r, col[j] = 1, c++;
+        cout << ans << ' ';
+    }
+}
+
+
+
+
+Cyclic Rotation Paradigm (Contest)
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+signed main(){
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++){
+        cin >> a[i];
+    }
+    int ans = a[n - 1] - a[0];
+    for (int i = 0; i < n - 1; i++){
+        ans = max(ans, a[i] - a[i + 1]);
+    }
+    for (int i = 1; i < n; i++){
+        ans = max(ans, a[i] - a[0]);
+    }
+    for (int i = 0; i < n - 1; i++){
+        ans = max(ans, a[n - 1] - a[i]);
+    }
+    cout << ans;
+}
+
+
+
+Rotten oranges
+
+#include<bits/stdc++.h>
+using namespace std;
+
+#define pu push_back
+#define fi first
+#define se second
+#define mp make_pair
+#define int long long
+#define pii pair<int,int>
+#define mm (s+e)/2
+#define all(x) x.begin(), x.end()
+#define For(i, st, en) for(int i=st; i<en; i++)
+#define tr(x) for(auto it=x.begin(); it!=x.end(); it++)
+#define fast std::ios::sync_with_stdio(false);cin.tie(NULL);
+#define sz 200000
+int xa[4]={1,-1,0,0};
+int ya[4]={0,0,1,-1};
+int vis[400][400];
+int dist[400][400],A[400][400];
+int n,m;
+int check(int a,int b)
+{
+if(a>=0 && a<n && b>=0 && b<m  )return 1;
+else return 0;
+}
+signed main()
+{
+		cin>>n>>m;
+		deque<pii> ss;
+		int dis=0;
+		for(int i=0;i<n;i++)
+		{
+			for(int j=0;j<m;j++)
+			{
+				cin>>A[i][j];
+				if(A[i][j]!=0) dist[i][j]=10000000;
+				if(A[i][j]==2) {
+					ss.pu(mp(i,j));
+					dist[i][j]=0;
+				}
+
+			}
+		}
+		while(ss.size()>0)
+		{         
+			auto p=ss.front();
+			ss.pop_front();
+
+			for(int i=0;i<4;i++)
+			{
+				int x=p.fi+xa[i];
+				int y=p.se+ya[i];
+				if(check(x,y)==1 && dist[x][y]>dist[p.fi][p.se]+1)
+				{
+					dist[x][y]=dist[p.fi][p.se]+1;
+					ss.pu(mp(x,y));
+                       
+				}
+
+			}
+
+		}
+		for(int i=0;i<n;i++)
+		{
+			for(int j=0;j<m;j++)
+			{
+              dis=max(dis,dist[i][j]);
+			}
+		}
+		if(dis>=100000) cout<<-1<<endl;
+		else cout<<dis<<endl;
+}
+
+
+
+
+Matrix problem
+
+#include <bits/stdc++.h>
+using namespace std;
+#define MEM(a, b) memset(a, (b), sizeof(a))
+#define FOREACH(it, l) for (auto it = l.begin(); it != l.end(); it++)
+#define IN(A, B, C) assert( B <= A && A <= C)
+#define MP make_pair
+#define FOR(i,a) for(int i=0;i<a;i++)
+#define FOR1(i,j,a) for(int i=j;i<a;i++)
+#define EB emplace_back
+#define INF (int)1e9
+#define EPS 1e-9
+#define PI 3.1415926535897932384626433832795
+#define MOD 1000000007
+#define read(type) readInt<type>()
+#define max1 1001
+#define out(x) cout<<x<<'\n'
+#define out1(x) cout<<x<<" "
+#define END cout<<'\n'
+#define int long long
+void fast(){
+ios::sync_with_stdio(0);
+cin.tie(0);
+
+cout.tie(0);
+
+}
+
+int a[max1][max1],b[max1][max1];
+
+signed main(){
+
+
+
+fast();
+
+int n,k;
+
+cin>>n>>k;
+
+
+
+for(int i=0;i<=n;i++){
+
+    a[i][0]=0;
+
+    a[0][i]=0;
+
+}
+
+FOR(i,n){
+
+    FOR(j,n){
+
+    cin>>b[i][j];
+
+    }
+
+}
+
+for(int i=1;i<=n;i++){
+
+    for(int j=1;j<=n;j++){
+
+        a[i][j]=a[i][j-1]+b[i-1][j-1];
+
+    }
+
+}
+
+for(int i=1;i<=n;i++){
+
+    for(int j=1;j<=n;j++){
+
+        a[i][j]=a[i-1][j]+a[i][j];
+
+  //     out1(a[i][j]);
+    }
+    //END;
+}
+int ans=0;
+int cnt=0;
+for(int i=1;i<=n;i++){
+    for(int j=1;j<=n;j++){
+        for(int l=0;l<=min(n-i,n-j);l++){
+              cnt=a[i-1][j-1]+a[i+l][j+l]-a[i+l][j-1]-a[i-1][j+l];
+              if(cnt<=k){
+                ans=max(ans,l+1);
+              }
+        }
+    }
+}
+out(ans);
+}
+
+
+
+
+String rearrange
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String s = br.readLine();
+        int a = -1 , b = 0, c= 0, d = 0;
+
+        for(int i = 0 ; i < s.length() ; i++){
+            if(s.charAt(i) == 'a')
+                a++;
+            else if(s.charAt(i) == 'b')
+                b++;
+            else if(s.charAt(i) == 'c')
+                c++;
+            else if(s.charAt(i) == 'd')
+                d++;
+        }
+        if(a==-1)
+        System.out.print(0);
+        else
+        System.out.print(findmin(a,b,c,d));
+    }
+    static int findmin(int a, int b, int c , int d){
+        int f , s ;
+        f = Math.min(a,b); s = Math.min(c, d);
+        return Math.min(f,s);
+    }
+
+}
+
+
+Remaining hunger
+
+import java.util.*;
+
+public class Main {
+    public int fun(int[] students, int[] parathas) {
+        int[] a = {0, 0};
+        for (int i=0;i<students.length;i++)
+            a[students[i]]+=1;
+        int k = 0;
+        while (k < parathas.length){
+            if (a[parathas[k]] > 0)
+                a[parathas[k]]-=1;
+            else
+                break;
+            k+=1;}
+        return parathas.length-k;
+    }
+	public static void main(String[] args) {
+		Main obj=new Main();
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+        int[] students=new int[n];
+        int[] parathas=new int[n];
+        for(int i=0;i<n;i++){
+            students[i]=sc.nextInt();
+        }
+        for(int i=0;i<n;i++){
+            parathas[i]=sc.nextInt();
+        }
+        int ans=obj.fun(students, parathas);
+		System.out.println(ans);
+		return;
+	}
+}
+
+
+Array Proximity (Contest)
+
+import java.io.*;
+import java.util.*;
+
+
+
+class Main {
+    public static void main (String[] args) throws Exception{
+
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int n=Integer.parseInt(br.readLine());
+        long[] a= new long[n];
+
+        String[] line=br.readLine().split(" ");
+        for(int i=0;i<n;i++){
+            a[i]=Long.parseLong(line[i]);
+        }
+        int i=0,j=i+1;
+        long prod=a[i]*a[j];
+
+        while(j<n-1){
+            i++;
+            j++;
+            prod=Math.max(prod,(a[i]*a[j]));
+        }
+
+        System.out.println(prod);
+
+    }
+
+}
+
+
+Help Arun with Weights (Contest)
+import java.util.*;
+
+import java.lang.*;
+
+import java.io.*;
+
+
+
+class Main
+
+{
+
+	public static void main (String[] args) throws java.lang.Exception
+
+	{
+
+	Scanner in=new Scanner(System.in);
+
+	int test=in.nextInt();
+
+	while(test-->0)
+
+	{
+
+	    int n=in.nextInt();
+
+	    int k=in.nextInt();
+
+	    int arr[]=new int[n];
+
+	    
+
+	    for(int i=0; i<n; i++){
+
+	        arr[i]=in.nextInt();
+
+	    }
+
+	    
+
+	    Arrays.sort(arr);
+
+	      if(k>n/2)
+
+		    {
+
+		        k=n-k;
+
+		    }
+
+	    
+
+	    int sum=0;
+
+	   for(int i=0; i<k; i++){
+
+	       sum=sum+arr[i];
+	   }
+	  int sum1=0;
+	    for(int i=k; i<n; i++){
+	        sum1=sum1+arr[i];
+	    }
+	    if(sum>sum1){
+	        int total=sum-sum1;
+	        System.out.println(total);
+	    }else{
+	           int total=sum1-sum;
+	    System.out.println(total);
+
+	    }
+	}
+	}
+}
+
+
+
+Akash's Contest (Contest)
+
+#include <bits/stdc++.h>
+
+
+
+#include <ext/pb_ds/assoc_container.hpp>
+
+#include <ext/pb_ds/tree_policy.hpp>
+
+
+
+using namespace std;
+
+using namespace __gnu_pbds;
+
+
+
+template <class T>
+
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+
+
+template <class key, class value, class cmp = std::less<key>>
+
+using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+
+// find_by_order(k)  returns iterator to kth element starting from 0;
+
+// order_of_key(k) returns count of elements strictly smaller than k;
+
+
+
+#ifdef LOCAL
+
+#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+
+#else
+
+#define debug(...) 2351
+
+#endif
+
+
+
+#define int long long
+
+
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+inline int64_t random_long(int l = LLONG_MIN, int r = LLONG_MAX) {
+
+    uniform_int_distribution<int64_t> generator(l, r);
+
+    return generator(rng);
+
+}
+
+
+
+int32_t main() {
+
+    ios_base::sync_with_stdio(0);
+
+    cin.tie(0);
+
+    cout.tie(0);
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+
+
+    int n, x, y;
+
+    cin >> n >> x >> y;
+
+    int low = 0, high = (int)1e18;
+
+    while (low <= high) {
+
+        int mid = low + (high - low) / 2;
+
+        int tillNow = (mid / x) + (mid / y);
+
+        if (tillNow >= n - 1) {
+
+            high = mid - 1;
+
+        } else
+
+            low = mid + 1;
+
+    }
+
+    cout << low + min(x, y) << endl;
+
+
+
+    auto stop = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+
+    cerr << "Time taken : " << ((long double)duration.count()) / ((long double)1e9) << "s " << endl;
+
+    return 0;
+
+};
+
+
+
+
+
+
+Binary searchable
+
+import java.util.*;
+
+public class Main {
+    public int fun(int[] students, int[] parathas) {
+        int[] a = {0, 0};
+        for (int i=0;i<students.length;i++)
+            a[students[i]]+=1;
+        int k = 0;
+        while (k < parathas.length){
+            if (a[parathas[k]] > 0)
+                a[parathas[k]]-=1;
+            else
+                break;
+            k+=1;}
+        return parathas.length-k;
+    }
+	public static void main(String[] args) {
+		Main obj=new Main();
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+        int[] students=new int[n];
+        int[] parathas=new int[n];
+        for(int i=0;i<n;i++){
+            students[i]=sc.nextInt();
+        }
+        for(int i=0;i<n;i++){
+            parathas[i]=sc.nextInt();
+        }
+        int ans=obj.fun(students, parathas);
+		System.out.println(ans);
+		return;
+	}
+}
+
+
+
+Attached playground: Least Subarrays - Contest 19-01-23
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+
+
+#define fast ios_base::sync_with_stdio(false); cin.tie(NULL);
+
+#define int long long
+
+#define pb push_back
+
+#define ff first
+
+#define ss second
+
+#define endl '\n'
+
+#define all(a) a.begin(), a.end()
+
+#define rall(a) a.rbegin(), a.rend()
+
+using T = pair<int, int>;
+
+typedef long double ld;
+
+const int mod = 1e9 + 7;
+
+const int INF = 1e9;
+
+
+
+// #include <ext/pb_ds/assoc_container.hpp>
+
+// #include <ext/pb_ds/tree_policy.hpp>
+
+// using namespace __gnu_pbds;
+
+// template <typename T>
+
+// using ordered_set = tree
+
+//     <T, null_type, less<T>, 
+
+//     rb_tree_tag,tree_order_statistics_node_update>; 
+
+// ordered_set<pair<int, int>> s;
+
+
+
+void solve(){
+
+    int n, m;
+
+    cin >> n >> m;
+
+    vector<int> a(n);
+
+    vector<int> b(m);
+
+    for(auto &i : a) cin >> i;
+
+    for(auto &i : b) cin >> i;
+
+    int p;
+
+    cin >> p;
+
+    int l = 1, r = min(n, m), ans = -1;
+
+    while(l <= r){
+
+        int mid = (l + r)/2;
+
+        int sum1 = 0, sum2 = 0, cur = 0;
+
+        for(int i = 0; i < n; i++){
+
+            cur += a[i];
+
+            if(i >= mid) cur -= a[i - mid];
+
+            sum1 = max(sum1, cur);
+
+        }
+
+        cur = 0;
+
+        for(int i = 0; i < m; i++){
+
+            cur += b[i];
+
+            if(i >= mid) cur -= b[i - mid];
+
+            sum2 = max(sum2, cur);
+
+        }
+
+        int temp = sum1 * sum2;
+
+        if(temp >= p){
+
+            ans = mid;
+
+            r = mid - 1;
+
+        }
+
+        else l = mid + 1;
+
+    }
+
+    cout << ans;
+
+}
+
+
+
+signed main(){
+
+    fast
+
+    int t = 1;
+
+    cin >> t;
+
+    for(int i = 1; i <= t; i++){
+
+        solve();
+
+        if(i != t) cout << endl;
+
+    }
+
+}
+
+
+Polynomial equation
+
+import java.io.*;
+
+import java.util.*;
+
+class Main
+
+{
+
+    static long binary_search(long a, long b, long c, long k) {
+
+    	long l = 0;
+
+    	long r = 100000000;
+
+    	long ans = 0;
+
+    	while (l <= r) {
+
+    		long t = (l + r) / 2;
+
+    		long f = a * t * t + b * t + c;
+
+    		if (f >= k) {
+
+    			ans = t;
+
+    			r = t - 1;
+
+    		}
+
+    		else {
+
+    			l = t + 1;
+
+    		}
+
+    	}
+
+    	return ans;
+
+    }
+
+    public static void main (String args[]) throws IOException
+
+    {   
+
+        BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+
+        String line = br.readLine();
+
+        String[] strs = line.trim().split("\\s+");
+
+        long  a=Long.parseLong(strs[0]);
+
+        long  b=Long.parseLong(strs[1]);
+
+        long  c=Long.parseLong(strs[2]);
+
+        long  k=Long.parseLong(strs[3]);
+
+    	System.out.print(binary_search(a, b, c, k));
+
+    }
+
+}
+
+
+
+Ropes (Contest) - Contest 29-12-22
+
+#include <bits/stdc++.h>
+
+
+
+#include <ext/pb_ds/assoc_container.hpp>
+
+#include <ext/pb_ds/tree_policy.hpp>
+
+
+
+using namespace std;
+
+using namespace __gnu_pbds;
+
+
+
+template <class T>
+
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+
+
+template <class key, class value, class cmp = std::less<key>>
+
+using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+
+// find_by_order(k)  returns iterator to kth element starting from 0;
+
+// order_of_key(k) returns count of elements strictly smaller than k;
+
+
+
+#ifdef LOCAL
+
+#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+
+#else
+
+#define debug(...) 2351
+
+#endif
+
+
+
+#define int long long
+
+
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+inline int64_t random_long(int l = LLONG_MIN, int r = LLONG_MAX) {
+
+    uniform_int_distribution<int64_t> generator(l, r);
+
+    return generator(rng);
+
+}
+
+
+
+int32_t main() {
+
+    ios_base::sync_with_stdio(0);
+
+    cin.tie(0);
+
+    cout.tie(0);
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+
+
+    int n, k;
+
+    cin >> n >> k;
+
+    vector<double> a(n);
+
+    for (int i = 0; i < n; i++) {
+
+        cin >> a[i];
+
+    }
+
+    double l = 0, r = 1e9;
+
+    auto check = [&](double x) -> bool {
+
+        int piece = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            piece += a[i] / x;
+
+        }
+
+        if (piece >= k) {
+
+            return true;
+
+        }
+
+        return false;
+
+    };
+
+
+
+    while (r - l > 0.000001) {
+
+        double mid = l + (r - l) / 2;
+
+        if (check(mid))
+
+            l = mid;
+
+        else
+
+            r = mid;
+
+    }
+
+    printf("%0.6f", l);
+
+
+
+    auto stop = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+
+    cerr << "Time taken : " << ((long double)duration.count()) / ((long double)1e9) << "s " << endl;
+
+    return 0;
+
+};
+
+
+
+
+
+Wakandan Point in Unsorted Array
+
+import java.io.*;
+
+import java.util.*;
+
+
+
+class Main {
+
+
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br =
+
+            new BufferedReader(new InputStreamReader(System.in));
+
+        
+
+       
+
+            int n = Integer.parseInt(br.readLine().trim());
+
+            int arr[] = new int[n];
+
+            String inputLine[] = br.readLine().trim().split(" ");
+
+            for (int i = 0; i < n; i++) {
+
+                arr[i] = Integer.parseInt(inputLine[i]);
+
+            }
+
+
+
+            
+
+            System.out.println(equilibriumPoint(arr, n));
+
+        
+
+    }
+
+
+
+public static int equilibriumPoint(int a[], int n) {
+
+
+
+        // Sum of all array elements
+
+        long sum = 0;
+
+        for (int i = 0; i < n; i++) 
+
+           sum += a[i];
+
+
+
+        // sum2 is used to store prefix sum
+
+        long sum2 = 0;
+
+        int ans = -1;
+
+
+
+        for (int i = 0; i < n; i++) {
+
+            
+
+            // Update suffix sum
+
+            sum = sum - a[i];
+
+            
+
+            // Check if suffix and prefix 
+
+            // sums are same
+
+            if (sum2 == sum) {
+
+                return i;
+
+            }
+
+            
+
+            // Update prefix sum
+
+            sum2 = sum2 + a[i];
+
+        }
+
+        return -1;
+
+    }
+
+}
+
+
+
+Inversion count merge sort
+#include <bits/stdc++.h>
+using namespace std;
+
+long  long _mergeSort(long long arr[], int temp[], int left, int right);
+long  long merge(long long arr[], int temp[], int left, int mid, int right);
+
+/* This function sorts the input array and returns the
+number of inversions in the array */
+long  long mergeSort(long long  arr[], int array_size)
+{
+    int temp[array_size];
+    return _mergeSort(arr, temp, 0, array_size - 1);
+}
+
+/* An auxiliary recursive function that sorts the input array and
+returns the number of inversions in the array. */
+long  long _mergeSort(long long arr[], int temp[], int left, int right)
+{
+    long  long mid, inv_count = 0;
+    if (right > left) {
+        /* Divide the array into two parts and
+        call _mergeSortAndCountInv()
+        for each of the parts */
+        mid = (right + left) / 2;
+
+        /* Inversion count will be sum of
+        inversions in left-part, right-part
+        and number of inversions in merging */
+        inv_count += _mergeSort(arr, temp, left, mid);
+        inv_count += _mergeSort(arr, temp, mid + 1, right);
+
+        /*Merge the two parts*/
+        inv_count += merge(arr, temp, left, mid + 1, right);
+    }
+    return inv_count;
+}
+
+/* This funt merges two sorted arrays
+and returns inversion count in the arrays.*/
+long  long merge(long long arr[], int temp[], int left,
+          int mid, int right)
+{
+    int i, j, k;
+    long  long inv_count = 0;
+
+    i = left; /* i is index for left subarray*/
+    j = mid; /* j is index for right subarray*/
+    k = left; /* k is index for resultant merged subarray*/
+    while ((i <= mid - 1) && (j <= right)) {
+        if (arr[i] <= arr[j]) {
+            temp[k++] = arr[i++];
+        }
+        else {
+            temp[k++] = arr[j++];
+
+            /* this is tricky -- see above
+            explanation/diagram for merge()*/
+            inv_count = inv_count + (mid - i);
+        }
+    }
+
+    /* Copy the remaining elements of left subarray
+(if there are any) to temp*/
+    while (i <= mid - 1)
+        temp[k++] = arr[i++];
+
+    /* Copy the remaining elements of right subarray
+(if there are any) to temp*/
+    while (j <= right)
+        temp[k++] = arr[j++];
+
+    /*Copy back the merged elements to original array*/
+    for (i = left; i <= right; i++)
+        arr[i] = temp[i];
+
+    return inv_count;}
+
+int main(){
+
+  
+int n;
+cin>>n;
+long long a[n];
+for(int i=0;i<n;i++){
+cin>>a[i];}
+ long long ans = mergeSort(a, n);
+    cout  << ans; }
+    
+    
+    
+    
+Small is best
+    
+n=int(input())
+a=map(int,input().split())
+c=200001
+v=0
+for i in a:
+    if i<c:
+        c=i
+        v+=1
+print(v)
+
+
+Maximum Frequency Character - Weekend Contest - [27.11.2022]
+
+
+import java.io.*;
+import java.util.*;
+
+
+
+class Main {
+    public static void main (String[] args) {
+
+
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        String s = sc.next();
+
+        int arr[]= new int[26];
+        for(int i=0;i<n;i++){
+            char ch = s.charAt(i);
+            int j = ch - 'a';
+            arr[j]++;
+        }
+        int max = 0;
+        int sec = 0;
+        int fr = 0;
+        int j =0;
+
+        for(int i=0;i<26; i++){
+            if(arr[i]> max){
+                sec = max;
+                max = arr[i];
+                j=i;
+            }else if(arr[i]>sec){
+                sec = arr[i];
+            }
+        }
+
+        if(sec == max){
+            System.out.print(-1);
+        }else{
+            for(int i=0;i<n; i++){
+                char c = s.charAt(i);
+                if(c-'a' == j){
+                    System.out.print(c);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+
+Maximum Sum
+
+import java.io.*;
+import java.util.*;
+
+
+
+class Main {
+    public static void main (String[] args) {
+
+
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+
+        int[] arr = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i] = input.nextInt();
+        }
+        System.out.println(splitSum(arr,n));
+    }
+
+    private static int splitSum(int[] arr, int n){
+
+         if(arr.length == 0)
+            return 0;
+
+         if(arr.length == 1)
+            return arr[0];
+
+            int lp = arr[0];
+            int rp = arr[n-1];
+            int i = 1;
+            int j = n-2;
+            int res = 0;
+
+            while(i<=j){
+
+                if(lp == rp)
+                    res = lp;
+
+                if(lp < rp){
+                    lp += arr[i++];
+                }
+                else{
+                    rp += arr[j--];
+                }
+
+            }
+
+        if(lp == rp)
+            res = lp;
+
+        return res;
+    }
+}
+
+
+
+
+
+Minimum spanning tree
+
+#include<bits/stdc++.h>
+using namespace std;
+#define pu push_back
+#define fi first
+#define se second
+#define mp make_pair
+#define int long long
+ #define sz 2000005
+ int A[sz];
+ vector<int> NEB[sz],dist[sz];
+ int root(int a)
+ {
+ 	int i=a;
+ 	if(A[i]!=i)
+ 	{
+ 		A[i]=root(A[i]);
+	 }
+	 return A[i];
+ }
+ int unio(int a,int b)
+ {
+ 	int ra=root(a);
+ 	int rb=root(b);
+ 	if(ra!=rb)
+ 	{
+ 		A[ra]=rb;
+	 }
+ }
+signed main()
+{    
+	
+	int n,m;
+	cin>>n>>m;
+	vector<pair<int,pair<int,int> > > X;
+	for(int i=0;i<m;i++)
+	{
+		int a,b,c;
+		cin>>a>>b;
+		c=(a+b)%1000;
+		X.pu(mp(c,mp(a,b)));
+	}
+	for(int i=1;i<=n;i++)
+	{
+		A[i]=i;
+	}
+	sort(X.begin(),X.end());
+	int sum=0;
+	for(int i=0;i<X.size();i++)
+	{
+		int cc=X[i].fi;
+		int aa=X[i].se.fi;
+		int bb=X[i].se.se;
+		if(root(aa)!=root(bb))
+		{
+			sum+=cc;
+			unio(aa,bb);
+		}
+	}
+	cout<<sum<<endl;
+ }
+ 
+ 
+ 
+ 
+ GCD of LCM! (Contest) - GCD
+ 
+ import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.TreeSet;
+
+
+public class Main {
+
+    public static int gcd(int a, int b) {
+        if (a == 0) return b;
+        return gcd(b % a, a);
+    }
+    public static int lcm(int a, int b) {
+        return (a / gcd(a, b)) * b;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(read.readLine());
+        String[] str = read.readLine().trim().split(" ");
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(str[i]);
+        }
+
+        int[] temp = new int[n];
+        for (int i = 0; i < n; i++) {
+            temp[i] = 1;
+        }
+        temp[n - 1] = arr[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            temp[i] = gcd(arr[i], temp[i + 1]);
+        }
+        int[] wemp = new int[n - 1];
+        for (int i = 0; i < n - 1; i++) {
+            wemp[i] = lcm(arr[i], temp[i + 1]);
+        }
+        int result = wemp[0];
+        for (int i = 1; i < n - 1; i++) {
+            result = gcd(result, wemp[i]);
+        }
+        System.out.println(result);
+
+    }
+}
+
+
+
+Candy Shopping
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+
+
+
+signed main(){
+
+    int n, m;
+
+    cin >> n >> m;
+
+    vector<int> p(n);
+
+    for(auto &i : p) cin >> i;
+
+    sort(p.begin(), p.end());
+
+    int cur = 0, ans = 0;
+
+    for(int i = 0; i < n; i++){
+
+        if(cur + p[i] > m){
+
+            break;
+
+        }
+
+        cur += p[i];
+
+        ans++;
+
+    }
+
+    cout << ans;
+
+}
+
+
+
+
+Close to Right (Contest)
+
+#include <bits/stdc++.h>
+
+
+
+#include <ext/pb_ds/assoc_container.hpp>
+
+#include <ext/pb_ds/tree_policy.hpp>
+
+
+
+using namespace std;
+
+using namespace __gnu_pbds;
+
+
+
+template <class T>
+
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+
+
+template <class key, class value, class cmp = std::less<key>>
+
+using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+
+// find_by_order(k)  returns iterator to kth element starting from 0;
+
+// order_of_key(k) returns count of elements strictly smaller than k;
+
+
+
+#ifdef LOCAL
+
+#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+
+#else
+
+#define debug(...) 2351
+
+#endif
+
+
+
+#define int long long
+
+
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+inline int64_t random_long(int l = LLONG_MIN, int r = LLONG_MAX) {
+
+    uniform_int_distribution<int64_t> generator(l, r);
+
+    return generator(rng);
+
+}
+
+
+
+double Solve() {
+
+    int n, k;
+
+    cin >> n >> k;
+
+    vector<double> a(n);
+
+    for (int i = 0; i < n; i++) {
+
+        cin >> a[i];
+
+    }
+
+    double l = 0, r = 1e9;
+
+    auto check = [&](double x) -> bool {
+
+        int piece = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            piece += a[i] / x;
+
+        }
+
+        if (piece >= k) {
+
+            return true;
+
+        }
+
+        return false;
+
+    };
+
+
+
+    while (r - l > 0.000001) {
+
+        double mid = l + (r - l) / 2;
+
+        if (check(mid))
+
+            l = mid;
+
+        else
+
+            r = mid;
+
+    }
+
+    return l;
+
+}
+
+
+
+double Actual() {
+
+    int n, k;
+
+    cin >> n >> k;
+
+    vector<double> a(n);
+
+    for (int i = 0; i < n; i++) {
+
+        cin >> a[i];
+
+    }
+
+    double l = 0, r = 1e9;
+
+    auto check = [&](double x) -> bool {
+
+        int piece = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            piece += a[i] / x;
+
+        }
+
+        if (piece >= k) {
+
+            return true;
+
+        }
+
+        return false;
+
+    };
+
+
+
+    while (r - l > 0.000001) {
+
+        double mid = l + (r - l) / 2;
+
+        if (check(mid))
+
+            l = mid;
+
+        else
+
+            r = mid;
+
+    }
+
+    return l;
+
+}
+
+
+
+int32_t main() {
+
+    ios_base::sync_with_stdio(0);
+
+    cin.tie(0);
+
+    cout.tie(0);
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+
+
+    int n, q;
+
+    cin >> n >> q;
+
+    vector<int> a(n);
+
+    for (int i = 0; i < n; i++) {
+
+        cin >> a[i];
+
+    }
+
+    while (q--) {
+
+        int x;
+
+        cin >> x;
+
+        int l = 0, r = n - 1;
+
+        while (l <= r) {
+
+            int mid = l + (r - l) / 2;
+
+            if (a[mid] <= x) {
+
+                l = mid + 1;
+
+            } else {
+
+                r = mid - 1;
+
+            }
+
+        }
+
+        cout << l << "\n";
+
+    }
+
+
+
+    auto stop = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+
+    cerr << "Time taken : " << ((long double)duration.count()) / ((long double)1e9) << "s " << endl;
+
+    return 0;
+
+};
+
+
+
+
+Hip Hip Array
+
+
+n = int(input())
+
+lst = list(map(int, input().strip().split()))[:n]
+lst.reverse()
+
+lst_1 = 0
+for i in range(1, n, 2):
+    lst_1 += lst[i]
+lst_2 = 1
+for i in range(0, n, 2):
+    lst_2 *= lst[i]
+print(lst_1,lst_2)
+
+
+
+
+
+Multiple
+easy
+
+static int [] countOfNumbers(int A[],int n){
+
+      int cnt[] = new int[n]; 
+
+    for(int i=0;i<n;i++){
+
+        cnt[i]=0;
+
+    }
+
+    
+
+    for(int i=0;i<n-1;i++){
+
+        int ans=0;
+
+        for(int j=i+1;j<n;j++){
+
+            if(A[j]%A[i]==0){ans++;}
+
+        }
+
+        cnt[i]=ans;
+
+    }
+
+    return cnt;
+
+	}
+
+
+
+Bad dish
+
+
+demolisher
+Demolisher
+a day ago
+
+
+import java.io.*;
+
+import java.util.*;
+
+
+
+class Main {
+
+	public static void main (String[] args)throws IOException {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		int t;
+
+		t = Integer.parseInt(br.readLine());
+
+		while (t > 0) {
+
+			int N;
+
+			long h;
+
+			String line = br.readLine();
+
+			String[] strs = line.trim().split("\\s+");
+
+			N = Integer.parseInt(strs[0]);
+
+			h = Long.parseLong(strs[1]);
+
+			long A[] = new long[N];
+
+			line = br.readLine();
+
+			strs = line.trim().split("\\s+");
+
+			for (int i = 0; i < N; i++) {
+
+				A[i] = Long.parseLong(strs[i]);
+
+			}
+
+			long ng = 0;
+
+			long ok = h;
+
+			while (ok - ng > 1) {
+
+				long x = (ok + ng) / 2;
+
+				long sum = 0;
+
+				for (int n = 0; n < N; n++) {
+
+					if (n == N - 1) {
+
+						sum += x;
+
+					} else {
+
+						sum += Math.min(x, A[n + 1] - A[n]);
+
+					}
+
+				}
+
+				if (sum >= h) {
+
+					ok = x;
+
+				} else {
+
+					ng = x;
+
+				}
+
+			}
+
+			System.out.print(ok+"\n");
+
+			t--;
+
+		}
+
+	}
+
+}
+
+
+
+Palindromic Array
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int findMinOps(int arr[], int n)
+
+{
+
+    int ans = 0; // Initialize result
+
+
+
+    // Start from two corners
+
+    for (int i=0,j=n-1; i<=j;)
+
+    {
+
+        // If corner elements are same,
+
+        // problem reduces arr[i+1..j-1]
+
+        if (arr[i] == arr[j])
+
+        {
+
+            i++;
+
+            j--;
+
+        }
+
+
+
+        // If left element is greater, then
+
+        // we merge right two elements
+
+        else if (arr[i] > arr[j])
+
+        {
+
+            // need to merge from tail.
+
+            j--;
+
+            arr[j] += arr[j+1] ;
+
+            ans++;
+
+        }
+
+
+
+        // Else we merge left two elements
+
+        else
+
+        {
+
+            i++;
+
+            arr[i] += arr[i-1];
+
+            ans++;
+
+        }
+
+    }
+
+
+
+    return ans;
+
+}
+
+int main(){
+
+
+
+int t;
+
+cin>>t;
+
+while(t--){
+
+        int n;
+
+cin>>n;
+
+int a[n];
+
+for(int i=0;i<n;i++){
+
+    cin>>a[i];
+
+}
+
+cout<<  findMinOps(a, n) << endl;
+
+
+
+}
+
+
+
+}
+
+
+
+First non-repeating character in a String
+
+#include <bits/stdc++.h>
+
+
+
+using namespace std;
+
+
+
+#ifdef LOCAL
+
+#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+
+#else
+
+#define debug(...) 2351
+
+#endif
+
+
+
+int firstUniqChar(string s) {
+
+    map<char, int> charCount;
+
+    int len = s.length();
+
+    for (int i = 0; i < len; i++) {
+
+        charCount[s[i]]++;
+
+    }
+
+    for (int i = 0; i < len; i++) {
+
+        if (charCount[s[i]] == 1)
+
+            return i;
+
+    }
+
+    return -1;
+
+}
+
+
+
+int main() {
+
+    ios::sync_with_stdio(0);
+
+    cin.tie(0);
+
+    string str;
+
+    cin>>str;
+
+    cout<<firstUniqChar(str)<<"\n";
+
+    return 0;
+
+}
+
+
+
+
+Guardians of Galaxy
+
+import java.io.*;
+import java.util.*;
+
+
+
+class Main {
+	public static void main (String[] args) {
+
+
+        FastReader sc = new FastReader();
+        int n = sc.nextInt();
+        long[] arr = new long[n];
+        for (int i = 0; i < n; i++) {
+            arr[i]= sc.nextLong();
+        }
+        long l = 0;
+        long r= 1000000000;
+        long x=0;
+        while (l!=r){
+             x= (l+r)/2;
+            if(checkThrust(arr,x)) {
+                r=x;
+            }
+            else {
+                l=x+1;
+            }
+        }
+        System.out.print(l);
+	}
+	static boolean checkThrust(long[] arr,long r){
+        long thrust = r;
+        for (int i = 0; i < arr.length; i++) {
+            thrust = 2*thrust-arr[i];
+            if(thrust>=1000000000000L) return true;
+            if(thrust<0) return false;
+        }
+        return true;
+    }
+    static class FastReader {
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastReader()
+        {
+            br = new BufferedReader(
+                    new InputStreamReader(System.in));
+        }
+
+        String next()
+        {
+            while (st == null || !st.hasMoreElements()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() { return Integer.parseInt(next()); }
+
+        long nextLong() { return Long.parseLong(next()); }
+
+        double nextDouble()
+        {
+            return Double.parseDouble(next());
+        }
+
+        String nextLine()
+        {
+            String str = "";
+            try {
+                if(st.hasMoreTokens()){
+                    str = st.nextToken("\n");
+                }
+                else{
+                    str = br.readLine();
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+    }
+}
+
+
+
+Yet Another Array Rearrangement Problem (Contest)
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+
+
+
+signed main(){
+
+    int n;
+
+    cin >> n;
+
+    vector<int> a(n);
+
+    for(auto &i : a) cin >> i;
+
+    int odd = 0;
+
+    for(auto i : a){
+
+        if(i % 2) odd++;
+
+    }
+
+    if(odd != 0 and odd != n){
+
+        sort(a.begin(), a.end());
+
+    }
+
+    for(auto i : a) cout << i << ' ';
+
+}
+
+
+
+
+
+Special digit sum
+
+
+
+import java.io.*;
+
+import java.util.*;
+
+
+
+
+
+
+
+public class Main {
+
+     
+
+    public static int maxDigit(Long x){
+
+        int mx=0;
+
+        while(x>0){
+
+            long cur=x%10;
+
+            x/=10;
+
+            mx=Math.max(mx,(int)cur);
+
+        }
+
+        return mx;
+
+    }
+
+    public static void main(String[] args) {
+
+        
+
+        InputStream inputStream = System.in;
+
+        OutputStream outputStream = System.out;
+
+        InputReader in = new InputReader(inputStream);
+
+        OutputWriter out = new OutputWriter(outputStream);
+
+        
+
+        int n=Integer.parseInt(in.next());
+
+        int ans=0;
+
+        for(int i=1;i<=n;i++){
+
+            long x=Long.parseLong(in.next());
+
+            ans += maxDigit(x);
+
+        }
+
+        out.print(ans);
+
+        out.close();
+
+        
+
+    }
+
+
+
+    
+
+    static class InputReader {
+
+        BufferedReader reader;
+
+        StringTokenizer tokenizer;
+
+        public InputReader(InputStream stream) {
+
+            reader = new BufferedReader(new InputStreamReader(stream), 32768);
+
+            tokenizer = null;
+
+        }
+
+
+
+        public String next() {
+
+            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+
+                try {
+
+                    tokenizer = new StringTokenizer(reader.readLine());
+
+                } catch (IOException e) {
+
+                    throw new RuntimeException(e);
+
+                }
+
+            }
+
+            return tokenizer.nextToken();
+
+        }
+
+
+
+        public int nextInt() {
+
+            return Integer.parseInt(next());
+
+        }
+
+
+
+    }
+
+
+
+    static class OutputWriter {
+
+        private final PrintWriter writer;
+
+
+
+        public OutputWriter(OutputStream outputStream) {
+
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+
+        }
+
+
+
+        public OutputWriter(Writer writer) {
+
+            this.writer = new PrintWriter(writer);
+
+        }
+
+
+
+        public void print(Object... objects) {
+
+            for (int i = 0; i < objects.length; i++) {
+
+                if (i != 0) {
+
+                    writer.print(' ');
+
+                }
+
+                writer.print(objects[i]);
+
+            }
+
+        }
+
+
+
+        public void println(Object... objects) {
+
+            print(objects);
+
+            writer.println();
+
+        }
+
+
+
+        public void close() {
+
+            writer.close();
+
+        }
+
+
+
+        public void println(int i) {
+
+            writer.println(i);
+
+        }
+
+
+
+    }
+
+}
+
+
+
+Too Close
+
+size,k = map(int,input().split())
+lis = list(map(int,input().split()))
+l=[]
+m=0
+for i in lis:
+    if(k+m in lis and k-m in lis):
+        m=m+1
+    else:
+        if(k-m in lis):
+            print(k+m)
+        else:
+            print(k-m)
+        break
+        
+        
+        
+        
+Close to Right
+
+#include <bits/stdc++.h>
+
+
+
+#include <ext/pb_ds/assoc_container.hpp>
+
+#include <ext/pb_ds/tree_policy.hpp>
+
+
+
+using namespace std;
+
+using namespace __gnu_pbds;
+
+
+
+template <class T>
+
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+
+
+template <class key, class value, class cmp = std::less<key>>
+
+using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+
+// find_by_order(k)  returns iterator to kth element starting from 0;
+
+// order_of_key(k) returns count of elements strictly smaller than k;
+
+
+
+#ifdef LOCAL
+
+#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+
+#else
+
+#define debug(...) 2351
+
+#endif
+
+
+
+#define int long long
+
+
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+inline int64_t random_long(int l = LLONG_MIN, int r = LLONG_MAX) {
+
+    uniform_int_distribution<int64_t> generator(l, r);
+
+    return generator(rng);
+
+}
+
+
+
+int32_t main() {
+
+    ios_base::sync_with_stdio(0);
+
+    cin.tie(0);
+
+    cout.tie(0);
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+
+
+    int n, q;
+
+    cin >> n >> q;
+
+    vector<int> a(n);
+
+    for (int i = 0; i < n; i++) {
+
+        cin >> a[i];
+
+    }
+
+    while (q--) {
+
+        int x;
+
+        cin >> x;
+
+        int l = 0, r = n - 1;
+
+        while (l <= r) {
+
+            int mid = l + (r - l) / 2;
+
+            if (a[mid] <= x) {
+
+                l = mid + 1;
+
+            } else {
+
+                r = mid - 1;
+
+            }
+
+        }
+
+        cout << l << "\n";
+
+    }
+
+
+
+    auto stop = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+
+    cerr << "Time taken : " << ((long double)duration.count()) / ((long double)1e9) << "s " << endl;
+
+    return 0;
+
+};
+
+
+
+Food line question
+
+n = int(input())
+li = input().split()
+li = list(map(int, li))
+
+curr = 0
+ans = 0
+
+li.sort()
+
+for i in li:
+    if i >= curr:
+        curr += i
+        ans += 1
+
+print(ans)
+
+
+
+Choose Card optimally
+
+import java.util.*;
+
+
+
+public class Main
+
+{
+
+    
+
+    public static void main(String[] args)
+
+    {
+
+        Scanner sc=new Scanner(System.in);
+
+        int n=sc.nextInt();
+
+        int m=sc.nextInt();
+
+        int[] a=new int[n];
+
+        int[] b=new int[m];
+
+        for(int i=0;i<n;i++){
+
+            int val=sc.nextInt();
+
+            a[i]=val;
+
+        }
+
+        for(int i=0;i<m;i++){
+
+            int val=sc.nextInt();
+
+            b[i]=val;
+
+        }
+
+        Arrays.sort(a);
+
+        Arrays.sort(b);
+
+        if(a[n-1]!=b[m-1]){
+
+            if(a[n-1]<b[m-1]){
+
+                System.out.println("Shubham");
+
+                return;
+
+            }
+
+            else{
+
+                System.out.println("Maruti");
+
+                return;
+
+            }
+
+        }
+
+        System.out.println("Maruti");
+
+        return;
+
+    }
+
+}
+
+
+
+
+Transpose of a matrix
+
+n=int(input())
+for i in range(n):
+    for j in range(n):
+        print(i+ j,end=' ')
+    print()
+    
+    
+    
+Reduce to 1
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int dp[1001];
+
+
+
+int solve(int n){
+
+    if(n<=1){
+
+        return 0;
+
+    }
+
+    if(dp[n]==-1){
+
+        int ans = INT_MAX;
+
+    int x = sqrt(n);
+
+    ans=min(ans,solve(n-1));
+
+    for(int i=2;i<=x;i++){
+
+        if(n%i==0){
+
+        ans=min(ans,solve(n-i));
+
+        ans=min(ans,solve(n-(n/i)));
+
+    }}
+
+    dp[n]=ans+1;
+
+    }
+
+    return dp[n];
+
+}
+
+int main(){
+
+    for(int i=0;i<1001;i++){
+
+        dp[i]=-1;
+
+    }
+
+
+
+    int n;
+
+    cin>>n;
+
+    cout<<solve(n);
+
+}
+
+
+
+Alternate prefix score
+
+import java.io.*;
+
+import java.util.*;
+
+
+
+
+
+
+
+public class Main {
+
+     
+
+   
+
+    public static void main(String[] args) {
+
+        
+
+        InputStream inputStream = System.in;
+
+        OutputStream outputStream = System.out;
+
+        InputReader in = new InputReader(inputStream);
+
+        OutputWriter out = new OutputWriter(outputStream);
+
+        
+
+        int n=Integer.parseInt(in.next());
+
+        
+
+        int a[] = new int[n];
+
+        for(int t=0;t<n;t++){
+
+            a[t] = Integer.parseInt(in.next());
+
+        }
+
+        
+
+        Arrays.sort(a);
+
+        
+
+        int b[] = new int[n];
+
+        int i=0,j=0,k=n-1;
+
+        while(i<n){
+
+            if(i%2 == 0)b[i++] = a[j++];
+
+            else b[i++] = a[k--];
+
+        }
+
+        
+
+        for(int t=1;t<n;t++){
+
+            if(t%2 == 0)b[t] = b[t-1] + b[t];
+
+            else b[t] = b[t-1] - b[t];
+
+        }
+
+        
+
+        for(int t=0;t<n;t++){
+
+            out.print(b[t]+" ");
+
+        }
+
+        out.close();
+
+    }
+
+
+
+    
+
+    static class InputReader {
+
+        BufferedReader reader;
+
+        StringTokenizer tokenizer;
+
+        public InputReader(InputStream stream) {
+
+            reader = new BufferedReader(new InputStreamReader(stream), 32768);
+
+            tokenizer = null;
+
+        }
+
+
+
+        public String next() {
+
+            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+
+                try {
+
+                    tokenizer = new StringTokenizer(reader.readLine());
+
+                } catch (IOException e) {
+
+                    throw new RuntimeException(e);
+
+                }
+
+            }
+
+            return tokenizer.nextToken();
+
+        }
+
+
+
+        public int nextInt() {
+
+            return Integer.parseInt(next());
+
+        }
+
+
+
+    }
+
+
+
+    static class OutputWriter {
+
+        private final PrintWriter writer;
+
+
+
+        public OutputWriter(OutputStream outputStream) {
+
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+
+        }
+
+
+
+        public OutputWriter(Writer writer) {
+
+            this.writer = new PrintWriter(writer);
+
+        }
+
+
+
+        public void print(Object... objects) {
+
+            for (int i = 0; i < objects.length; i++) {
+
+                if (i != 0) {
+
+                    writer.print(' ');
+
+                }
+
+                writer.print(objects[i]);
+
+            }
+
+        }
+
+
+
+        public void println(Object... objects) {
+
+            print(objects);
+
+            writer.println();
+
+        }
+
+
+
+        public void close() {
+
+            writer.close();
+
+        }
+
+
+
+        public void println(int i) {
+
+            writer.println(i);
+
+        }
+
+
+
+    }
+
+}
+
+
+
+
+
+Maximum sum
+#include<bits/stdc++.h>
+
+#define ll long long
+
+using namespace std;
+
+int main()
+
+{
+
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+
+    int n; cin>>n;
+
+    ll a[n];
+
+    for(ll i=0;i<n;i++)
+
+        cin>>a[i];
+
+    ll Lindx=0,Rindx=n-1,sumL=0,sumR=0,ans=0;
+
+    while(Lindx<=Rindx){
+
+        if(sumL<=sumR)
+
+            sumL+=a[Lindx++];
+
+        else
+
+            sumR+=a[Rindx--];
+
+        if(sumL==sumR)
+
+            ans=sumL;
+
+    }
+
+    cout<<ans<<endl;
+
+    return 0;
+
+}
+
+
+Attached playground: Ultron : Vibranium Quest - Contest 19-01-23
+
+import java.io.*;
+import java.util.*;
+
+
+
+class Main {
+	public static void main (String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        int total = sc.nextInt();
+
+        int[] a = new int[n];
+
+        for(int i = 0; i < n; i++){
+            a[i] = sc.nextInt();
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0 ; i < n ; i++){
+            if(total >= a[i]){
+                sb.append('1');
+                total-=a[i];
+            }else{
+                sb.append('0');
+            }
+        }
+
+        System.out.println(sb);
+	}
+}
+
+
+Attached playground: Help Samar with Chopsticks (Contest) - Contest 19-01-23
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+ 
+
+int main() {
+
+   long int n, d;
+
+   cin >> n >> d;
+
+   long int arr[n];
+
+   for (int i = 0; i < n; i++) {
+
+       cin >> arr[i];
+
+   }
+
+   sort(arr, arr + n);
+
+   int cnt = 0;
+
+   for (int i = 1; i < n; i++) {
+
+       if (arr[i] - arr[i - 1] <= d) {
+
+           cnt++;
+
+           i++;
+
+       }
+
+   }
+
+   cout << cnt << endl;
+
+   return 0;
+
+}
+
+
+Even Numbers - 2
+
+import java.io.*; // for handling input/output
+import java.util.*; // contains Collections framework
+
+// don't change the name of this class
+// you can add inner classes if needed
+class Main {
+    public static void main (String[] args) {
+        // Your code here 
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int count = 0;
+        for (int i=n+1; i<m; i++){
+            if (i%2==0){
+                System.out.print(i+" ");
+                count++;
+                if (count==5){
+                    break;
+                }
+            }
+        }
+    }
+}
+
+
+Attached playground: Maximum Team strength (Contest) - Contest 15-01-23
+
+import java.io.*;
+
+import java.util.*;
+
+
+
+
+
+
+
+public class Main {
+
+     
+
+    public static void main(String[] args) {
+
+        
+
+        InputStream inputStream = System.in;
+
+        OutputStream outputStream = System.out;
+
+        InputReader in = new InputReader(inputStream);
+
+        OutputWriter out = new OutputWriter(outputStream);
+
+        
+
+        int n=Integer.parseInt(in.next());
+
+        int m=Integer.parseInt(in.next());
+
+        int k=Integer.parseInt(in.next());
+
+        
+
+        long a[] = new long[k];
+
+        Arrays.fill(a,0);
+
+        
+
+        for(int i=1;i<=n;i++){
+
+            int count=0;
+
+            for(int j=1;j<=m;j++){
+
+                int x=Integer.parseInt(in.next());
+
+                a[(i+j)%k] += x;
+
+            }
+
+        }
+
+        
+
+        long ans=0;
+
+        ans = 0;
+
+        for(int i=0;i<k;i++){
+
+            ans=Math.max(ans,a[i]);
+
+        }
+
+        out.print(ans);
+
+        out.close();
+
+        
+
+    }
+
+
+
+    
+
+    static class InputReader {
+
+        BufferedReader reader;
+
+        StringTokenizer tokenizer;
+
+        public InputReader(InputStream stream) {
+
+            reader = new BufferedReader(new InputStreamReader(stream), 32768);
+
+            tokenizer = null;
+
+        }
+
+
+
+        public String next() {
+
+            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+
+                try {
+
+                    tokenizer = new StringTokenizer(reader.readLine());
+
+                } catch (IOException e) {
+
+                    throw new RuntimeException(e);
+
+                }
+
+            }
+
+            return tokenizer.nextToken();
+
+        }
+
+
+
+        public int nextInt() {
+
+            return Integer.parseInt(next());
+
+        }
+
+
+
+    }
+
+
+
+    static class OutputWriter {
+
+        private final PrintWriter writer;
+
+
+
+        public OutputWriter(OutputStream outputStream) {
+
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+
+        }
+
+
+
+        public OutputWriter(Writer writer) {
+
+            this.writer = new PrintWriter(writer);
+
+        }
+
+
+
+        public void print(Object... objects) {
+
+            for (int i = 0; i < objects.length; i++) {
+
+                if (i != 0) {
+
+                    writer.print(' ');
+
+                }
+
+                writer.print(objects[i]);
+
+            }
+
+        }
+
+
+
+        public void println(Object... objects) {
+
+            print(objects);
+
+            writer.println();
+
+        }
+
+
+
+        public void close() {
+
+            writer.close();
+
+        }
+
+
+
+        public void println(int i) {
+
+            writer.println(i);
+
+        }
+
+
+
+    }
+
+}
+
+
+
+
